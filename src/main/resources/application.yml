@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/book?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: rnjsthfdl1
+
+  jpa:
+    hibernate:
+      ddl-auto: create #테이블이 만들어지면 update로 바꾸기
+    properties:
+      hibernate:
+        format_sql: true #To beautify or pretty print the SQL
+        show_sql: true #show sql
+
+
+logging:
+  level:
+    org.hibernate:
+      org.hibernate.SQL: debug
+      org.hibernate.type: trace # 쿼리파라미터 로그 찍기
+
+#      type.descriptor.sql: trace #show parameter binding
+#      SQL: DEBUG
+# org.hibernate.type: trace #스프링 부트 2.x, hibernate5
+# org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
+
+#security:
+#  jwt:
+#    token:
+#      security-key:secret-key
+#      expiration-length:3600000
+
+server:
+  port:8080
