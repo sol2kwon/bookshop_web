@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -12,8 +14,15 @@ import javax.persistence.*;
 public class Member {
 
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private long id;
 
     @Column(nullable = false, length = 100)
-    private String username;
+    private String name;
+
+    @Embedded //어딘가에 내장 되었다.
+    private Address address;
+
+    @OneToMany(mappedBy = "member")//읽기전용
+    private List<Order> orders = new ArrayList<>();
 }
