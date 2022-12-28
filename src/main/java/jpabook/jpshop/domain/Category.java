@@ -25,11 +25,18 @@ public class Category {
             inverseJoinColumns = @JoinColumn(name = "item_id")) //둘다 매니투매니일때 .. 실무에선 사용안함.
     private List<Item> items = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent; //부모
 
     @OneToMany
     private List<Category> child = new ArrayList<>(); // 자식
+
+    //==연관관계 메서드==//
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this);
+    }
+
 
 }

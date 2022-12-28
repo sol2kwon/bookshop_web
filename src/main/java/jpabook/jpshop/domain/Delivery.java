@@ -17,7 +17,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private long id;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery",fetch = FetchType.LAZY)
     private Order order;
 
     @Embedded //어딘가에 내장 되었다.
