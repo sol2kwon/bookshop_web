@@ -21,6 +21,8 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
-//    public List<Order> findAll(OrderSearch ordersearch ){} 검색조건
+//    public List<Order> findAllByCriteria(OrderSearch ordersearch ){
+//
+//    }
 
 }

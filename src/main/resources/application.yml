@@ -18,7 +18,8 @@ logging:
   level:
     org.hibernate:
       org.hibernate.SQL: debug
-      org.hibernate.type: trace # 쿼리파라미터 로그 찍기
+      org.hibernate.type: info
+      # trace 쿼리파라미터 로그 찍기
 
 #      type.descriptor.sql: trace #show parameter binding
 #      SQL: DEBUG
