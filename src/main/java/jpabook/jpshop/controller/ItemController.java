@@ -60,6 +60,10 @@ public class ItemController {
         return "items/updateItemForm";
     }
 
+
+/**
+ * 어설프게 컨트롤러에서 어설프게 엔티티 생성하지 말기
+ *
     //아이디에 대한 권한확인 필요.
     @PostMapping("items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form){
@@ -75,5 +79,15 @@ public class ItemController {
 
         return "redirect:/items";
     }
+ */
+
+//아이디에 대한 권한확인 필요.
+@PostMapping("items/{itemId}/edit")
+public String updateItem(@PathVariable Long itemId,@ModelAttribute("form") BookForm form){
+
+    itemService.updateItem(itemId,form.getName(),form.getPrice(), form.getStockQuantity());
+
+    return "redirect:/items";
+}
 
 }
