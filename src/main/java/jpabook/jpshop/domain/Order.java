@@ -1,6 +1,8 @@
 package jpabook.jpshop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.util.List;
 @Table(name ="orders")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //다른 사람이 생성하지 못하게 추가.
 public class Order {
     @Id @GeneratedValue
     @Column(name = "order_id")
@@ -67,11 +70,10 @@ public class Order {
     public void cancell(){
         if (delivery.getStatus() ==DeliveryStatus.COMP){
             throw new IllegalStateException("이미 배송 완료된 상품은 취소가 불가능합니다.");
-
         }
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems){
-            orderItem.cancel();
+            orderItem.cancel(); //오더 아이템에도 캔슬 해줘야한다.
         }
     }
 
@@ -83,7 +85,7 @@ public class Order {
     public int getTotalPrice(){
         int totalPrice = 0;
         for (OrderItem orderItem : orderItems){
-            totalPrice += orderItem.getOrderPrice();
+            totalPrice += orderItem.getTotalPrice();
         }
         return totalPrice;
     }

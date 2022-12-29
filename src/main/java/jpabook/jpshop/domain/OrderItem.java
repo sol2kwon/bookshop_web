@@ -1,5 +1,7 @@
 package jpabook.jpshop.domain;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -7,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)//다른 사람이 생성하지 못하게 추가.
 public class OrderItem {
     @Id @GeneratedValue
     @Column(name = "order_item_id")
@@ -37,9 +40,10 @@ public class OrderItem {
     //==비즈니스 로직==
     public void cancel(){
         getItem().addStock(count);
-    }
+    } //주문이 취소되면 재고는 다시 올라간다.
 
+    //==조회 로직==
     public int getTotalPrice(){
-        return getTotalPrice() * getCount();
+        return getOrderPrice() * getCount();
     }
 }
