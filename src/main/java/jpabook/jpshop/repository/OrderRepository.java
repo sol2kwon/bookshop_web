@@ -85,4 +85,28 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    /**
+     * 쿼리 방식 선택 권장 순서
+     * 1.엔티티를 dto로 변환
+     * 2.필요하면 패치조인으로 성능 최적화
+     * 3.그래도 안되면 dto로 직접조회
+     * 4.최후의 방법은 네이티브 sql이나 스프링 jdbc template 사용하여 sql 직접 사용
+     * */
+
+    public List<Order> findAllWithMemberDelivery(){
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
+    }
+
+ //별도로 관리해주기.
+    public List<OrderSimpleQueryDto> findOrderDtos(){
+       return em.createQuery(
+                "select new jpabook.jpshop.repository.OrderSimpleQueryDto (o.id,m.name,o.orderDate,o.status,d.address)from Order o" +
+                        " join o.member m" +
+                        " join o.delivery d", OrderSimpleQueryDto.class
+        ).getResultList();
+    }
 }

@@ -26,7 +26,7 @@ public class Member {
     @Embedded //어딘가에 내장 되었다.
     private Address address;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "member")//읽기전용
     private List<Order> orders = new ArrayList<>();
 
